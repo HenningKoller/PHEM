@@ -1,26 +1,98 @@
-function getPrograms($http) {
-    $http.get('http://inf5750-20.uio.no/api/programs.json')
-        .success(function(data, status, headers) {
-            console.log("Got programs")
-            return data.programs;
+var myApp = angular.module('myApp', []);
 
-        })
-        .error(function(error) {
-            console.log("Error getting programs");
-            console.log(error);
-        });
-}
+myApp.controller("myController", function($scope, $http) {
+    initPage();
 
-function getOrgUnits($http) {
-    $http.get('http://inf5750-20.uio.no/api/programs.json')
-        .success(function(data, status, headers) {
-            console.log("Got orgUnits")
-            return data.organisationUnits;
+    $scope.getProg = function() {
+        console.log($scope.program.id);
+        console.log($scope.country.id);
+    };
 
-        })
-        .error(function(error) {
-            console.log("Error getting orgUnits");
-            console.log(error);
-        });
-}
+    $scope.getValues = function() {
+        console.log($scope.program.name);
+        console.log($scope.country.name);
+    };
 
+    $scope.getDistricts = function() {
+        getOrganisationUnitChildren($scope.country.id, "district");
+
+    };
+
+    $scope.getChiefdoms = function() {
+        getOrganisationUnitChildren($scope.district.id, "chiefdom");
+    };
+
+    $scope.getClinics = function() {
+        getOrganisationUnitChildren($scope.chiefdom.id, "clinic");
+    };
+
+    function getPrograms() {
+        $http.get('http://inf5750-20.uio.no/api/programs.json')
+            .success(function(data, status, headers) {
+                console.log("Got Programs")
+                $scope.programList = data.programs;
+                $scope.program = $scope.programList[0];
+            })
+            .error(function(error) {
+                console.log("Error getting programs");
+                console.log(error);
+            });
+    }
+
+    function getCountries() {
+        //TODO url to Country is hardcoded
+        $http.get('http://inf5750-20.uio.no/api/organisationUnitGroups/RpbiCJpIYEj.json')
+            .success(function(data, status, headers) {
+                console.log("Got Countries")
+                $scope.countries = data.organisationUnits;
+                $scope.country = $scope.countries[0];
+            })
+            .error(function(error) {
+                console.log("Error getting countries");
+                console.log(error);
+            });
+    }
+
+    function getOrganisationUnitChildren(id, organisationType) {
+        $http.get('http://inf5750-20.uio.no/api/organisationUnits/'+id+'.json')
+            .success(function(data, status, headers) {
+                console.log("Got OrganisationUnit")
+                setDataToCorrectType(data, organisationType);
+            })
+            .error(function(error) {
+                console.log("Error getting organisationUnit");
+                console.log(error);
+            });
+    }
+
+    function getClinic(id) {
+        $http.get('http://inf5750-20.uio.no/api/organisationUnits/'+id+'.json')
+            .success(function(data, status, headers) {
+                console.log("Got clinic")
+
+            })
+            .error(function(error) {
+                console.log("Error getting clinic");
+                console.log(error);
+            });
+    }
+
+    function setDataToCorrectType(data, organisationType) {
+        if(organisationType == "district") {
+            $scope.districts = data.children;
+            $scope.district = $scope.districts[0];
+        } else if(organisationType == "chiefdom") {
+            $scope.chiefdoms = data.children;
+            $scope.chiefdom = $scope.chiefdoms[0];
+        } else if(organisationType == "clinic") {
+            $scope.clinics = data.children;
+            $scope.clinic = $scope.clinics[0];
+        }
+    }
+
+    function initPage() {
+        getPrograms();
+        getCountries();
+    }
+
+});
