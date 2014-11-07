@@ -1,28 +1,64 @@
 <!DOCTYPE html>
-<html ng-app="myApp">
+<html>
 <head lang="en">
 <script type="text/javascript" src="js/services.js"></script>
 <script type="text/javascript" src="js/angular.min.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
-<link rel="stylesheet" href="css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
 <meta charset="UTF-8">
 <title>Input Form</title>
 </head>
 <body>
 
-<div class="fixed-table-body">
-    <table class="table" data-toggle="table" data-url="testdata.json" data-cache="false" height="299">
-        <thead>
-            <tr>
-                <th data-field="id">Item ID</th>
-                <th data-field="name">Item Name</th>
-                <th data-field="price">Item Price</th>
-            </tr>
-        </thead>
-    </table>
+
+<div id="wrapper" ng-app="">
+	
+	<div id="expand-button-table" align="center">
+		<div ng-init="showElement=false">
+
+			<div>
+				<button type="button" class="btn btn-primary btn-success" ng-click="showElement=!showElement">
+				Show List</button>
+			</div>
+			
+			<div ng-show="showElement" id="item-table" class="table-responsive" ng-controller="values"> 
+				<table class="table table-striped table-bordered table-hover" cellspacing="0">
+					<thead>
+						<th class="success">ID</th>
+						<th class="success">Name</th>
+						<th class="success">Price</th>	
+					</thead>
+					
+				  <tr ng-repeat="x in variables">
+				    <td>{{x.id}}</td>
+				    <td>{{ x.name }}</td>
+				    <td>{{ x.price }}</td>
+				  </tr>
+				</table>
+			</div>	
+		</div>
+	</div>
+	
+	<div id="expand-list" align="left">
+		<div ng-init="showElm=false">	
+			<ul ng-click="showElm=!showElm">List Element 1
+				<li ng-show="showElm">List elem 1.1</li>			
+			</ul>	
+			<ul>List Element 2</ul>
+			<ul>List Element 3</ul>
+		
+		</div>	
+	</div>
+	
 </div>
-                
+
+<script>
+function values($scope,$http) {
+    $http.get("testdata.json")
+    .success(function(response) {$scope.variables = response;});
+}
+</script>                
 
 </body>
 </html>
