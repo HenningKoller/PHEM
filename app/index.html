@@ -1,9 +1,28 @@
-<html>
-<head>
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+    <script src="js/services.js"></script>
+    <meta charset="UTF-8">
+    <title></title>
 </head>
 <body>
-    <h1>Emil og Premer</h1>
-    <h2>Test where we use different colors<h3>
+<h1>DHIS QA-App</h1>
+
+<div ng-controller="myController">
+    <button ng-click="getProg()">{{clicked}}</button>
+</div>
+
+<script>
+    var myApp = angular.module('myApp', []);
+    myApp.controller("myController", function($scope, $http) {
+        $scope.clicked = "Click me!";
+        $scope.programList = [];
+        $scope.orgUnits = [];
+        $scope.getProg = function() {
+            getPrograms($http);
+        };
+    });
+</script>
 </body>
 </html>
-
