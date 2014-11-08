@@ -17,16 +17,16 @@
 
 	<div ng-controller="myTestController" style="float:left; width: auto">	
 		<div>
-			<table class="table">
+			<table class="table table-hover">
 				<thead>
 					<th>Country</th>
 				</thead>
 				<tr ng-repeat="country in countries">
 					<td ng-init="showDistrict=false" ng-click="showDistrict=!showDistrict">{{country}}
-						<table ng-show="showDistrict" class="table">
+						<table ng-show="showDistrict" class="table table-hover">
 							<tr ng-repeat="district in districts">
 								<td ng-init="showClinic=false" ng-click="showClinic=!showClinic">{{district}}
-									<table ng-show="showClinic" class="table">
+									<table ng-show="showClinic" class="table table-hover">
 										<tr ng-repeat="clinic in clinics">
 											<td>{{clinic}}</td>								
 										</tr>								
