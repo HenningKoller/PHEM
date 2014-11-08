@@ -28,30 +28,22 @@
 		</table>
 	</div>
 	
-	<div id="expand-button-table" style="float:right; width: 80%">
-		<div ng-init="showElement=false">
-
-			<div>
-				<button type="button" class="btn btn-primary btn-success" ng-click="showElement=!showElement">
-				Show List</button>
-			</div>
-			
-			<div ng-controller="myJsonReader" ng-show="showElement" id="item-table" class="table-responsive" ng-controller="values"> 
-				<table class="table table-striped table-bordered table-hover" cellspacing="0">
-					<thead>
-						<th class="success">ID</th>
-						<th class="success">Name</th>
-						<th class="success">Price</th>	
-					</thead>
-					
-				  <tr ng-repeat="variable in variables">
-				    <td> {{ variable.id }} </td>
-				    <td>{{ variable.name }}</td>
-				    <td>{{ variable.price }}</td>
-				  </tr>
-				</table>
-			</div>	
-		</div>
+	<div id="tableThing" style="float:right; width: 80%">	
+		<div ng-controller="myJsonReader" id="item-table" class="table-responsive" ng-controller="values"> 
+			<table class="table table-striped table-bordered table-hover" cellspacing="0">
+				<thead>
+					<th class="success">ID</th>
+					<th class="success">Name</th>
+					<th class="success">Price</th>	
+				</thead>
+				
+			  <tr ng-repeat="variable in variables">
+			    <td> {{ variable.id }} </td>
+			    <td>{{ variable.name }}</td>
+			    <td>{{ variable.price }}</td>
+			  </tr>
+			</table>
+		</div>	
 	</div>	
 	
 
