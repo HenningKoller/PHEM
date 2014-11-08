@@ -13,10 +13,24 @@
 <body>
 
 
-<div id="wrapper" style="width: 100%">
+<div id="wrapper" style="width: 100%;">
 
-	<div ng-controller="myTestController" style="float:left; width: auto">	
-		<div>
+	<div ng-controller="myTestController" style="float:left; width: auto">
+		<!--
+		<div id="list-country-picker">
+			<ul class="list-gruup">
+				<li ng-init="showDistrict=false" ng-click="showDistrict=!showDistrict" class="list-group-item" ng-repeat="country in countries">{{country}}
+					<ul class="list-group">
+						<p ng-show="showDistrict" ng-repeat="district in districts">{{district}}</p>					
+					</ul>				
+				</li>			
+			
+			</ul>	
+		</div>		
+		-->
+		
+		
+		<div id="countryPicker">
 			<table class="table table-hover">
 				<thead>
 					<th>Country</th>
@@ -38,11 +52,13 @@
 				</tr>	
 			</table>		
 		</div>
+
+		
 	</div>
 	
-	<div id="tableThing" style="float:left; width: auto">	
+	<div id="artifactTable" style="float:left; width: auto;">	
 		<div ng-controller="myTestController" id="item-table" class="table-responsive" ng-controller="values"> 
-			<table class="table table-striped table-bordered table-hover" cellspacing="0">
+			<table class="table table-striped table-bordered table-hover header-fixed">
 				<thead>
 					<th class="success"></th>
 					<th ng-repeat="artifact in artifacts" class="success">{{artifact}}</th>
@@ -53,11 +69,27 @@
 			  		<td ng-repeat="artifact in artifacts"><input type="checkbox"/></td>
 			  </tr>
 			 
+			  <tr ng-repeat="row in rows">
+			  		<th>{{row}}</th>
+			  		<td ng-repeat="artifact in artifacts"><input type="checkbox"/></td>
+			  </tr>
+			  
+			  <tr ng-repeat="row in rows">
+			  		<th>{{row}}</th>
+			  		<td ng-repeat="artifact in artifacts"><input type="checkbox"/></td>
+			  </tr>
+			  
+			  <tr ng-repeat="row in rows">
+			  		<th>{{row}}</th>
+			  		<td ng-repeat="artifact in artifacts"><input type="checkbox"/></td>
+			  </tr>
+			 
 			</table>
 		</div>	
 	</div>
 	
-</div>               
+</div>
+             
 
 </body>
 </html>
