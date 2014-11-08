@@ -98,7 +98,8 @@ myApp.controller("myController", function($scope, $http) {
 });
 
 myApp.controller("myTestController", function($scope) {
-	$scope.message = "I can't even";
+	$scope.countries = ["Norway","Sweeden","Finland"];
+	$scope.district = ["Akershus","Oslo","Vest-Agder", "Aust-Agder"];
 });
 
 

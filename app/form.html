@@ -33,28 +33,26 @@
 					</thead>
 					
 				  <tr ng-repeat="variable in variables">
-				    <td>{{variable.id}}</td>
+				    <td> {{ variable.id }} </td>
 				    <td>{{ variable.name }}</td>
 				    <td>{{ variable.price }}</td>
 				  </tr>
 				</table>
 			</div>	
 		</div>
-	</div>
+	</div>	
 	
-	<div id="expand-list" align="left">
-		<div ng-init="showElm=false">	
-			<ul ng-click="showElm=!showElm">List Element 1
-				<li ng-show="showElm">List elem 1.1</li>			
-			</ul>	
-			<ul>List Element 2</ul>
-			<ul>List Element 3</ul>
-		
-		</div>	
-	</div>
-	
-	<div id="scriptTesting" ng-controller="myTestController">
-		<h1>{{message}}</h1>
+	<div ng-controller="myTestController">			
+		<table class="table table-hover">
+			<thead>
+				<th>Country</th>
+			</thead>
+			<tr ng-repeat="x in countries">
+				<td ng-init="showDistrict=false" ng-click="showDistrict=!showDistrict">{{x}}
+					<ul ng-show="showDistrict" ng-repeat="y in district">{{y}}</ul>				
+				</td>
+			</tr>
+		</table>
 	</div>
 	
 </div>               
