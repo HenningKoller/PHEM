@@ -29,24 +29,25 @@
 	</div>
 	
 	<div id="tableThing" style="float:right; width: 80%">	
-		<div ng-controller="myJsonReader" id="item-table" class="table-responsive" ng-controller="values"> 
+		<div ng-controller="myTestController" id="item-table" class="table-responsive" ng-controller="values"> 
 			<table class="table table-striped table-bordered table-hover" cellspacing="0">
 				<thead>
-					<th class="success">ID</th>
-					<th class="success">Name</th>
-					<th class="success">Price</th>	
+					<th class="success"></th>
+					<th class="success">Artifact 1</th>
+					<th class="success">Artifact 2</th>
+					<th class="success">Artifact 3</th>	
 				</thead>
 				
-			  <tr ng-repeat="variable in variables">
-			    <td> {{ variable.id }} </td>
-			    <td>{{ variable.name }}</td>
-			    <td>{{ variable.price }}</td>
+			  <tr ng-repeat="row in rows">
+			  		<th>{{row}}</th>
+			  		<td><input type="checkbox"/></td>
+			  		<td><input type="checkbox"/></td>
+			  		<td><input type="checkbox"/></td>
 			  </tr>
+			 
 			</table>
 		</div>	
-	</div>	
-	
-
+	</div>
 	
 </div>               
 
