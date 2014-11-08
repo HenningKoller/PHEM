@@ -96,3 +96,13 @@ myApp.controller("myController", function($scope, $http) {
     }
 
 });
+
+myApp.controller("myTestController", function($scope) {
+	$scope.message = "I can't even";
+});
+
+
+myApp.controller("myJsonReader", function($scope, $http) {
+    $http.get("testdata.json")
+    .success(function(response) {$scope.variables = response;});
+});
