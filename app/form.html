@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head lang="en">
-<script type="text/javascript" src="js/services.js"></script>
+
 <script type="text/javascript" src="js/angular.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/services.js"></script>
+
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
 <meta charset="UTF-8">
 <title>Input Form</title>
@@ -12,7 +14,7 @@
 <body>
 
 
-<div id="wrapper" ng-app="">
+<div id="wrapper">
 	
 	<div id="expand-button-table" align="center">
 		<div ng-init="showElement=false">
@@ -49,6 +51,11 @@
 			<ul>List Element 3</ul>
 		
 		</div>	
+	</div>
+	
+	<div id="scriptTesting" ng-controller="myController">
+	
+		<h1>{{country.id}}</h1>
 	</div>
 	
 </div>
