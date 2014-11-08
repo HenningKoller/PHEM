@@ -13,9 +13,22 @@
 <body>
 
 
-<div id="wrapper">
+<div id="wrapper" style="width: 100%">
+
+	<div ng-controller="myTestController" style="float:left; width: 20%">			
+		<table class="table table-hover">
+			<thead>
+				<th>Country</th>
+			</thead>
+			<tr ng-repeat="x in countries">
+				<td ng-init="showDistrict=false" ng-click="showDistrict=!showDistrict">{{x}}
+					<ul ng-show="showDistrict" ng-repeat="y in district">{{y}}</ul>				
+				</td>
+			</tr>
+		</table>
+	</div>
 	
-	<div id="expand-button-table" align="center">
+	<div id="expand-button-table" style="float:right; width: 80%">
 		<div ng-init="showElement=false">
 
 			<div>
@@ -41,18 +54,7 @@
 		</div>
 	</div>	
 	
-	<div ng-controller="myTestController">			
-		<table class="table table-hover">
-			<thead>
-				<th>Country</th>
-			</thead>
-			<tr ng-repeat="x in countries">
-				<td ng-init="showDistrict=false" ng-click="showDistrict=!showDistrict">{{x}}
-					<ul ng-show="showDistrict" ng-repeat="y in district">{{y}}</ul>				
-				</td>
-			</tr>
-		</table>
-	</div>
+
 	
 </div>               
 
