@@ -99,7 +99,7 @@ myApp.controller("myController", function($scope, $http) {
 
 myApp.controller("myTestController", function($scope) {
 	$scope.countries = ["Norway","Sweeden","Finland"];
-	$scope.district = ["Akershus","Oslo","Vest-Agder", "Aust-Agder"];
+	$scope.districts = ["Akershus","Oslo","Vest-Agder", "Aust-Agder"];
 	$scope.clinics = ["OUS", "Ahus", "VVHF", "SSHF", "SIHF"];
 	$scope.rows= ["Age","Sex","Height","Weight","City","Thing 1", "Thing 2"];
 	$scope.artifacts = ["Journal", "ART Registry", "Database"];
