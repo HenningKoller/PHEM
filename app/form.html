@@ -4,9 +4,13 @@
 	<script type="text/javascript" src="js/angular.min.js"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-table.js"></script>
 	<script type="text/javascript" src="js/services.js"></script>
 	
+	
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="css/bootstrap-table.css"/>	
+	
 	<meta charset="UTF-8">
 	<title>Input Form</title>
 	
@@ -20,6 +24,7 @@
 		.pointer-cursor{
 			cursor: pointer;
 		}
+		
 	</style>
 
 </head>
@@ -63,32 +68,18 @@
 			
 			<div class="col-lg-9">
 				<div ng-controller="myTestController" id="item-table" class="table-responsive" ng-controller="values"> 
-					<table class="table table-striped table-bordered table-hover header-fixed">
-						<thead>
-							<th class="success"></th>
-							<th ng-repeat="artifact in artifacts" class="success">{{artifact}}</th>
-						</thead>
-						
-					  <tr ng-repeat="row in rows">
-					  		<th>{{row}}</th>
-					  		<td ng-repeat="artifact in artifacts"><input type="checkbox"/></td>
-					  </tr>
-					 
-					  <tr ng-repeat="row in rows">
-					  		<th>{{row}}</th>
-					  		<td ng-repeat="artifact in artifacts"><input type="checkbox"/></td>
-					  </tr>
-					  
-					  <tr ng-repeat="row in rows">
-					  		<th>{{row}}</th>
-					  		<td ng-repeat="artifact in artifacts"><input type="checkbox"/></td>
-					  </tr>
-					  
-					  <tr ng-repeat="row in rows">
-					  		<th>{{row}}</th>
-					  		<td ng-repeat="artifact in artifacts"><input type="checkbox"/></td>
-					  </tr>
-					 
+					<table class="pointer-cursor" data-toggle="table" data-cache="false" data-height="200">
+					    <thead>
+					        <tr>
+					        		<th></th>
+					        		<th ng-repeat="artifact in artifacts">{{artifact}}</th>
+					        </tr>
+					    </thead>
+					    
+					    <tr ng-repeat="row in rows">
+							<td><strong>{{row}}</strong></td>
+							<td ng-repeat="artifact in artifacts"><input type="checkbox"></input></td>					    
+					    </tr>
 					</table>
 				</div>				
 			
