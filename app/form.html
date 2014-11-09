@@ -11,7 +11,8 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
 	<link rel="stylesheet" type="text/css" href="css/bootstrap-table.css"/>	
 	
-	<meta charset="UTF-8">
+	
+	<meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1">
 	<title>Input Form</title>
 	
 	<style>
@@ -35,7 +36,7 @@
 		<div class="row">
 			<div class="col-lg-12 header">
 				<nav class="jumbotron custom-jum">
-					<h1 class="jumbotitle">PHEM</h1>				
+					<a href="https://wiki.uio.no/mn/ifi/inf5750/index.php/PHEM"><h1 class="jumbotitle">PHEM</h1></a>				
 				</nav>		
 			</div>		
 		</div>
@@ -67,8 +68,8 @@
 			</div>
 			
 			<div class="col-lg-9">
-				<div ng-controller="myTestController" id="item-table" class="table-responsive" ng-controller="values"> 
-					<table class="pointer-cursor" data-toggle="table" data-cache="false" data-height="200">
+				<div ng-controller="myTestController" id="item-table" ng-controller="values"> 
+					<table class="pointer-cursor table-hover table-condensed" data-toggle="table" data-cache="false" data-height="200">
 					    <thead>
 					        <tr>
 					        		<th></th>
