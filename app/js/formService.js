@@ -35,8 +35,6 @@ myApp.controller("formController", function($scope, $http) {
         }
     }
 
-
-    
     var testData = [
         {
             "id": 0,
