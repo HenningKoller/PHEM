@@ -27,10 +27,10 @@ myApp.controller("formController", function($scope, $http) {
     function parseDataElement(data) {
         for (var i = 0; i < data.length; i++) {
             var dataName = data[i].name.split("_");
-            if(dataName[0] in $scope.artifacts) {
-                $scope.artifacts[dataName[0]].row.push(dataName[1]);
+            if(dataName[1] in $scope.artifacts) {
+                $scope.artifacts[dataName[1]].row.push(dataName[0]);
             } else {
-                $scope.artifacts[dataName[0]] = {row: [dataName[1]]};
+                $scope.artifacts[dataName[1]] = {row: [dataName[0]]};
             }
         }
     }
