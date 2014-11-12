@@ -23,7 +23,8 @@ myApp.controller("myController", function($scope, $http) {
     };
 
     $scope.getClinics = function() {
-        getClinics();
+        //getClinics();
+        getOrganisationUnitChildren($scope.chiefdom.id, "clinic");
     };
 
     function getPrograms() {
@@ -65,8 +66,10 @@ myApp.controller("myController", function($scope, $http) {
             });
     }
 
-    function getClinics() {
-        $http.get('http://inf5750-20.uio.no/api/organisationUnitGroups/RXL3lPSK8oG.json')
+    //function getClinics() {
+     //   $http.get('http://inf5750-20.uio.no/api/organisationUnitGroups/RXL3lPSK8oG.json')
+    function getClinic(id) {
+            $http.get('http://inf5750-20.uio.no/api/organisationUnits/'+id+'.json')
             .success(function(data, status, headers) {
                 console.log("Got clinics")
                 $scope.clinics = data.organisationUnits;
@@ -94,7 +97,7 @@ myApp.controller("myController", function($scope, $http) {
     function initPage() {
         getPrograms();
         getCountries();
-        getClinics();
+        //getClinics();
     }
 
 });
