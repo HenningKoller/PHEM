@@ -24,18 +24,18 @@
 		<select class="form-control" ng-change="getDistricts()" ng-model="country" ng-options="country.name for country in countries"></select>
 		<select class="form-control" ng-change="getChiefdoms()" ng-model="district" ng-options="district.name for district in districts"></select>
 		<select class="form-control" ng-change="getClinics()" ng-model="chiefdom" ng-options="chiefdom.name for chiefdom in chiefdoms"></select>
-		<select class="form-control" ng-model="clinic" ng-options="clinic.name for clinic in clinics"></select>
+
 		</div>
 
 
 		<div class="col-md-6">
 			Search: <input ng-model="searchText">
-			<table id="searchTextResults">
-				<tr><th>Clinics</th></tr>
-				<tr ng-repeat="clinic in clinics | filter:searchText">
+			<ul id="searchTextResults">
+				Clinics
+				<li class="text-left" ng-repeat="clinic in clinics | filter:searchText">
 					<td><a href="../formView/form.html">{{clinic.name}}</a></td>
-				</tr>
-			</table>
+				</li>
+			</ul>
 		</div>
 	</div>
 
