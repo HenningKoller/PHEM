@@ -1,32 +1,34 @@
 <!DOCTYPE html>
 <html ng-app="myApp">
 <head lang="en">
-    <script src="../js/angular.min.js"></script>
-    <script src="services.js"></script>
-    <meta charset="UTF-8">
-    <title></title>
+	<script type="text/javascript" src="../js/angular.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-table.js"></script>
+	<script type="text/javascript" src="../indexView/services.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap-table.css"/>
+
+	<meta charset="UTF-8">
+	<title></title>
 </head>
 <body>
-	<a href="../formView/form.html">Form html</a>
-<h1>DHIS QA-App</h1>
+<div class="container">
+	<h1>DHIS QA-App</h1>
 
-<div ng-controller="myController">
-    <select ng-model="program" ng-options="prog.name for prog in programList"></select>
-    <br>
-    <select ng-model="country" ng-options="country.name for country in countries"></select>
-    <br>
-    <select ng-model="district" ng-options="district.name for district in districts"></select>
-    <br>
-    <select ng-model="chiefdom" ng-options="chiefdom.name for chiefdom in chiefdoms"></select>
-    <br>
-    <select ng-model="clinic" ng-options="clinic.name for clinic in clinics"></select>
-    <br>
-    <button ng-click="getProg()">Se Id</button>
-    <button ng-click="getValues()">Se Navn</button>
-    <button ng-click="getDistricts()">Hent districts</button>
-    <button ng-click="getChiefdoms()">Hent chiefdoms</button>
-    <button ng-click="getClinics()">Hent Clinics</button>
+	<div ng-controller="myTestController">
+		Search: <input ng-model="searchText">
+		<table id="searchTextResults">
+			<tr><th>Clinics</th></tr>
+			<tr ng-repeat="clinic in clinics | filter:searchText">
+				<td><a href="../formView/form.html">{{clinic}}</a></td>
+			</tr>
+		</table>
+
+	</div>
 </div>
+
 
 </body>
 </html>
