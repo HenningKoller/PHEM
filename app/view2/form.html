@@ -1,0 +1,109 @@
+<!--
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head lang="en">
+	<script type="text/javascript" src="../js/angular.min.js"></script>
+	<script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap-table.js"></script>
+	<script type="text/javascript" src="../indexView/services.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap-table.css"/>
+
+
+	<meta name="viewport" charset="UTF-8" content="width=device-width, initial-scale=1">
+	<title>Input Form</title>
+
+	<style>
+		.pointer-cursor{
+			cursor: pointer;
+		}
+		.col-centered{
+			float: none;
+			margin: 0 auto;
+		}
+
+		.table-head-fixed {
+			position: fixed;
+			background-color: white;
+		}
+
+
+	</style>
+
+</head>
+<body>
+-->
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container-fluid">
+
+		<form class="navbar-form navbar-left">
+			<div class="form-group text-center">
+				<input type="text" class="form-control" placeholder="Patient ID">
+			</div>
+		</form>
+
+
+		<div class="navbar-text" style="margin-left: 30%;">
+			<label>Uganda Health Clinic for AIDS</label>
+		</div>
+
+		<div class="navbar-btn navbar-right" style="margin-right: 15px;" >
+			<button type="submit" class="btn btn-success">Submit</button>
+			<button type="submit" class="btn btn-danger">Clear</button>
+		</div>
+	</div><!-- /.container-fluid -->
+</nav>
+
+<div class="container" style="margin-top: 60px;">
+
+
+	<div class="row">
+
+		<div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 col-centered">
+			<div ng-controller="myTestController" id="item-table">
+				<table class="table-hover table-condensed table table-bordered table-striped">
+
+					<colgroup>
+						<col span="1" style="width: auto;">
+						<col span="1" style="width: 70px;">
+						<col span="1" style="width: 70px;">
+						<col span="1" style="width: 70px;">
+					</colgroup>
+					<thead class="navbar-static-top">
+					<tr>
+						<th class="text-right"><span class="glyphicon glyphicon-globe"></span> Artifact Entries</th>
+						<th class="text-center" ng-repeat="artifact in artifacts">{{artifact}}</th>
+					</tr>
+					</thead>
+					<tr class="text-right" ng-repeat="row in rows">
+						<td><strong>{{row}}</strong></td>
+						<td ng-repeat="artifact in artifacts"><input class="pointer-cursor" type="checkbox"></input></td>
+					</tr>
+					<tr class="text-right" ng-repeat="row in rows">
+						<td><strong>{{row}}</strong></td>
+						<td ng-repeat="artifact in artifacts"><input class="pointer-cursor" type="checkbox"></input></td>
+					</tr>
+					<tr class="text-right" ng-repeat="row in rows">
+						<td><strong>{{row}}</strong></td>
+						<td ng-repeat="artifact in artifacts"><input class="pointer-cursor" type="checkbox"></input></td>
+					</tr>
+					<tr class="text-right" ng-repeat="row in rows">
+						<td><strong>{{row}}</strong></td>
+						<td ng-repeat="artifact in artifacts"><input class="pointer-cursor" type="checkbox"></input></td>
+					</tr>
+				</table>
+			</div>
+
+		</div>
+	</div>
+
+
+
+</div>
+
+<!--
+</body>
+</html>
+-->
