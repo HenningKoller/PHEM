@@ -139,50 +139,7 @@ myApp.controller("myController", function($scope, $http) {
 
 
     $scope.clear_form = function(){
-        $scope.checkboxes.checked = ["null"];
-        console.log($scope.checkboxes.checked + " hei")
+        console.log("Refreshing page to clear data");
+        location.reload();
     }
-});
-
-myApp.controller("myTestController", function($scope) {
-	$scope.countries = ["Norway","Sweeden","Finland"];
-	$scope.districts = ["Akershus","Oslo","Vest-Agder", "Aust-Agder"];
-	$scope.clinics = ["OUS", "Ahus", "VVHF", "SSHF", "SIHF"];
-	$scope.rows= ["Age","Sex","Height","Weight","City","Thing 1", "Thing 2"];
-	$scope.artifacts = ["Journal", "ART Registry", "Database"];
-});
-
-
-myApp.controller('checkboxValues', function($scope) {
-    $scope.rows = {
-        Age: ["Journal", "ART Registry", "Database"],
-        Sex: ["Journal", "ART Registry", "Database"],
-        Height: ["Journal", "ART Registry", "Database"],
-        Weight: ["Journal", "ART Registry", "Database"]
-    };
-
-    $scope.rowLength = 0;
-
-
-    angular.forEach($scope.rows, function(value, key) {
-        if(value.length > $scope.rowLength) {
-            $scope.rowLength = value.length;
-        }
-    });
-
-    $scope.checkboxes = {
-        checked : []
-    };
-
-    $scope.clear_form = function(){
-        $scope.checkboxes.checked = [];
-    }
-
-
-});
-
-
-myApp.controller("myJsonReader", function($scope, $http) {
-    $http.get("testdata.json")
-    .success(function(response) {$scope.variables = response;});
 });
