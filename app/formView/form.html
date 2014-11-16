@@ -23,34 +23,29 @@
 			margin: 0 auto;
 		}
 
-		.table-head-fixed {
-			position: fixed;
-			background-color: white;
-		}
-
-
 	</style>
 
 </head>
 <body>
 
-<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+<nav class="navbar navbar-default navbar-fixed-top" role="navigation"  ng-controller="myController">
 	<div class="container-fluid">
 
-		<form class="navbar-form navbar-left">
-			<div class="form-group text-center">
-				<input type="text" class="form-control" placeholder="Patient ID">
-			</div>
-		</form>
-
+		<div>
+			<form name="myForm" class="navbar-form navbar-left">
+				<input type="text" class="form-control" ng-model="patientID"
+					   ng-trim="false"  name="patientID" placeholder="Patient ID" ng-change="setPatient(patientID)" required>
+				<span class="text-danger" ng-show="myForm.patientID.$error.required"> Required!</span>
+			</form>
+		</div>
 
 		<div class="navbar-text" style="margin-left: 30%;">
 			<label>Uganda Health Clinic for AIDS</label>
 		</div>
 
-		<div class="navbar-btn navbar-right" style="margin-right: 15px;" >
-			<button type="submit" class="btn btn-success">Submit</button>
-			<button type="submit" class="btn btn-danger">Clear</button>
+		<div class="navbar-btn navbar-right" style="margin-right: 15px;">
+			<button type="submit" class="btn btn-success" ng-click="post_patient()">Submit</button>
+			<button type="submit" class="btn btn-danger" ng-click="clear_form()">Clear</button>
 		</div>
 	</div><!-- /.container-fluid -->
 </nav>
@@ -61,7 +56,7 @@
 	<div class="row">
 
 		<div class="col-xs-12 col-sm-6 col-md-5 col-lg-4 col-centered">
-			<div ng-controller="myTestController" id="item-table">
+			<div ng-controller="myController" id="item-table">
 				<table class="table-hover table-condensed table table-bordered table-striped">
 
 					<colgroup>
@@ -70,31 +65,27 @@
 						<col span="1" style="width: 70px;">
 						<col span="1" style="width: 70px;">
 					</colgroup>
-					<thead class="navbar-static-top">
-					<tr>
+
+					<thead>
+					<tr ng-repeat="(key,values) in rows">
 						<th class="text-right"><span class="glyphicon glyphicon-globe"></span> Artifact Entries</th>
-						<th class="text-center" ng-repeat="artifact in artifacts">{{artifact}}</th>
+						<th class="text-center" ng-repeat="value in values">{{value}}</th>
 					</tr>
 					</thead>
-					<tr class="text-right" ng-repeat="row in rows">
-						<td><strong>{{row}}</strong></td>
-						<td ng-repeat="artifact in artifacts"><input class="pointer-cursor" type="checkbox"></input></td>
-					</tr>
-					<tr class="text-right" ng-repeat="row in rows">
-						<td><strong>{{row}}</strong></td>
-						<td ng-repeat="artifact in artifacts"><input class="pointer-cursor" type="checkbox"></input></td>
-					</tr>
-					<tr class="text-right" ng-repeat="row in rows">
-						<td><strong>{{row}}</strong></td>
-						<td ng-repeat="artifact in artifacts"><input class="pointer-cursor" type="checkbox"></input></td>
-					</tr>
-					<tr class="text-right" ng-repeat="row in rows">
-						<td><strong>{{row}}</strong></td>
-						<td ng-repeat="artifact in artifacts"><input class="pointer-cursor" type="checkbox"></input></td>
+					<tr class="text-right" ng-repeat="(key, values) in rows">
+						<td><strong>{{key}}</strong></td>
+						<td ng-repeat="value in values">
+							<input type="checkbox"
+								   ng-model="checkboxes.checked[($index) + ($parent.$index*rowLength)]"
+								   ng-true-value="{{key}} {{value}}"
+								   ng-false-value="null">
+						</td>
 					</tr>
 				</table>
-			</div>
+				<p>Checkboxes Checked: {{checkboxes.checked}}</p>
+				<p>Row Length: {{rowLength}}</p>
 
+			</div>
 		</div>
 	</div>
 

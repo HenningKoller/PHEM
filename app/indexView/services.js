@@ -100,6 +100,48 @@ myApp.controller("myController", function($scope, $http) {
         //getClinics();
     }
 
+
+    $scope.post_patient = function(){
+
+        if($scope.patientID == null){
+            alert("You have to specify Patient ID");
+        }else{
+            console.log("Posting patient: " + $scope.patientID + " to db....");
+            location.reload();
+        }
+    };
+
+    $scope.setPatient = function(name){
+      $scope.patientID = name;
+        console.log("name is: " + name);
+        console.log("patientID is now " + $scope.patientID)
+    };
+
+    $scope.rows = {
+        Age: ["Journal", "ART Registry", "Database"],
+        Sex: ["Journal", "ART Registry", "Database"],
+        Height: ["Journal", "ART Registry", "Database"],
+        Weight: ["Journal", "ART Registry", "Database"]
+    };
+
+    $scope.rowLength = 0;
+
+
+    angular.forEach($scope.rows, function(value, key) {
+        if(value.length > $scope.rowLength) {
+            $scope.rowLength = value.length;
+        }
+    });
+
+    $scope.checkboxes = {
+        checked : []
+    };
+
+
+    $scope.clear_form = function(){
+        $scope.checkboxes.checked = ["null"];
+        console.log($scope.checkboxes.checked + " hei")
+    }
 });
 
 myApp.controller("myTestController", function($scope) {
@@ -108,6 +150,35 @@ myApp.controller("myTestController", function($scope) {
 	$scope.clinics = ["OUS", "Ahus", "VVHF", "SSHF", "SIHF"];
 	$scope.rows= ["Age","Sex","Height","Weight","City","Thing 1", "Thing 2"];
 	$scope.artifacts = ["Journal", "ART Registry", "Database"];
+});
+
+
+myApp.controller('checkboxValues', function($scope) {
+    $scope.rows = {
+        Age: ["Journal", "ART Registry", "Database"],
+        Sex: ["Journal", "ART Registry", "Database"],
+        Height: ["Journal", "ART Registry", "Database"],
+        Weight: ["Journal", "ART Registry", "Database"]
+    };
+
+    $scope.rowLength = 0;
+
+
+    angular.forEach($scope.rows, function(value, key) {
+        if(value.length > $scope.rowLength) {
+            $scope.rowLength = value.length;
+        }
+    });
+
+    $scope.checkboxes = {
+        checked : []
+    };
+
+    $scope.clear_form = function(){
+        $scope.checkboxes.checked = [];
+    }
+
+
 });
 
 
