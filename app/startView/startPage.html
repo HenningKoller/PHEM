@@ -1,0 +1,22 @@
+<div class="container">
+	<h1>DHIS QA-App</h1>
+
+	<div class="dropdown btn row" ng-controller="startController">
+		<div class="col-md-6">
+			<select id="programSelector" ng-change="getDistricts()" class="form-control" ng-model="program" ng-options="prog.name for prog in programList"></select>
+			<select class="form-control" ng-change="getDistricts()" ng-model="country" ng-options="country.name for country in countries"></select>
+			<select class="form-control" ng-change="getChiefdoms()" ng-model="district" ng-options="district.name for district in districts"></select>
+			<select class="form-control" ng-change="getClinics()" ng-model="chiefdom" ng-options="chiefdom.name for chiefdom in chiefdoms"></select>
+		</div>
+
+		<div class="col-md-6">
+			Search: <input ng-model="searchText">
+			<ul id="searchTextResults">
+				Clinics
+				<li class="text-left" ng-repeat="clinic in clinics | filter:searchText">
+					<td><a href="../formView/form.html">{{clinic.name}}</a></td>
+				</li>
+			</ul>
+		</div>
+	</div>
+</div>
