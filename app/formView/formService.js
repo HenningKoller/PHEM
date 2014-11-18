@@ -4,14 +4,59 @@ myApp.controller("formController", function($scope, $http) {
 
     $scope.artifacts = {};
     var dataElementGroup;
+    var dataElements = [];
+    var progId = "yER7LmNjloJ";
+    getProgramStages();
 
-    getDataElementGroup();
-    $scope.getData = function () {
-        console.log("Test data");
-        parseDataElement(dataElementGroup);
-    };
+    function getProgramStages() {
+        $http.get("http://inf5750-20.uio.no/api/programs/"+progId+".json")
+            .success(function (data, status, headers) {
+                console.log("Got programStages");
+                console.log(data.programStages[0].id);
 
+                //TODO can be more than one stage
+                getDataElements(data.programStages[0].id);
+            })
+            .error(function (error) {
+                console.log("Error getting programStages");
+                console.log(error);
+            });
+    }
 
+    function getDataElements(id) {
+        $http.get("http://inf5750-20.uio.no/api/programStages/"+id+".json")
+            .success(function (data, status, headers) {
+                console.log("Got DataElements");
+                console.log(data.programStageDataElements);
+                parseStageElements(data.programStageDataElements);
+            })
+            .error(function (error) {
+                console.log("Error getting programStages");
+                console.log(error);
+            });
+    }
+
+    function parseStageElements(stageElements) {
+        for(var i = 0; i < stageElements.length; i++) {
+            dataElements.push(stageElements[i].dataElement);
+        }
+        console.log(dataElements);
+        parseDataElement(dataElements);
+    }
+
+    function parseDataElement(dataElements) {
+        for (var i = 0; i < dataElements.length; i++) {
+            var dataName = dataElements[i].name.split("_");
+            if(dataName[1] in $scope.artifacts) {
+                $scope.artifacts[dataName[1]].row.push(dataName[0]);
+            } else {
+                $scope.artifacts[dataName[1]] = {row: [dataName[0]]};
+            }
+        }
+        console.log($scope.artifacts);
+    }
+
+    //TODO HACKZ
     function getDataElementGroup() {
         $http.get("http://inf5750-20.uio.no/api/dataElementGroups/vV9GQdbCS0B.json")
             .success(function (data, status, headers) {
@@ -23,54 +68,4 @@ myApp.controller("formController", function($scope, $http) {
                 console.log(error);
             });
     }
-
-    function parseDataElement(data) {
-        for (var i = 0; i < data.length; i++) {
-            var dataName = data[i].name.split("_");
-            if(dataName[1] in $scope.artifacts) {
-                $scope.artifacts[dataName[1]].row.push(dataName[0]);
-            } else {
-                $scope.artifacts[dataName[1]] = {row: [dataName[0]]};
-            }
-        }
-    }
-
-    var testData = [
-        {
-            "id": 0,
-            "name": "DB_age",
-            "price": "$0"
-        },
-        {
-            "id": 1,
-            "name": "DB_sex",
-            "price": "$1"
-        },
-        {
-            "id": 2,
-            "name": "Jrnl_age",
-            "price": "$2"
-        },
-        {
-            "id": 3,
-            "name": "Jrnl_sex",
-            "price": "$3"
-        },
-        {
-            "id": 4,
-            "name": "Reg_age",
-            "price": "$4"
-        },
-        {
-            "id": 5,
-            "name": "Reg_sex",
-            "price": "$5"
-        } ,
-        {
-            "id": 5,
-            "name": "Reg_height",
-            "price": "$5"
-        }
-    ]
-
 });
