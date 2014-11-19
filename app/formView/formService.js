@@ -10,6 +10,7 @@ angular.module('myApp.formView', ['ngRoute'])
     }])
 
     .controller("formController", function($scope, $http, $routeParams) {
+        $scope.checkboxes = [];
 
         $scope.artifacts = {};
         var dataElementGroup;
@@ -64,4 +65,55 @@ angular.module('myApp.formView', ['ngRoute'])
             }
             console.log($scope.artifacts);
         }
+
+        $scope.post_patient = function(){
+
+            if($scope.patientID == null){
+                alert("You have to specify Patient ID");
+            }else{
+                console.log("Posting patient: " + $scope.patientID + " to db....");
+                location.reload();
+            }
+        };
+
+        $scope.setPatient = function(name){
+            $scope.patientID = name;
+            console.log("name is: " + name);
+            console.log("patientID is now " + $scope.patientID)
+        };
+
+        $scope.rows = {
+            Age: [["Journal", "gsuofd16543"], ["ART Registry", "3fasd3234"], ["Database", "gsresgfj123"]],
+            Sex: [["Journal", "d16543"], ["ART Registry", "3fasd3234"], ["Database", "pppp3"]],
+            Height: [["Journal", "tyiut43"], ["ART Registry", "4iiuoyj"], ["Database", "2349gsdflk"]],
+            Weight: [["Journal", "83jhyth"], ["ART Registry", "456hhyht"], ["Database", "09gdfs"]]
+        };
+
+
+        $scope.rowLength = 0;
+
+
+        angular.forEach($scope.rows, function(value, key) {
+            if(value.length > $scope.rowLength) {
+                $scope.rowLength = value.length;
+            }
+        });
+
+
+        function initCheckboxes(){
+            angular.forEach($scope.checkboxes, function(key, value){
+                console.log(key);
+                console.log(value);
+                $scope.checkboxes.push("value[1] NO");
+            });
+
+
+        };
+
+        $scope.clear_form = function(){
+            console.log("Refreshing page to clear data");
+            location.reload();
+        };
+
+
     });
