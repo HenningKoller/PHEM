@@ -1,19 +1,41 @@
 <div class="container">
 	<h1>DHIS QA-App</h1>
 
-	<div class="dropdown btn row" ng-controller="startController">
-		<div class="col-md-6">
-			<select id="programSelector" ng-model="program" ng-options="prog.name for prog in programList"></select>
+	<div class="row" ng-controller="startController">
+
+
+		<div class="col-sm-4">
+			<strong>Select Program</strong>
+			<select id="programSelector"
+					class="form-control"
+					ng-model="program"
+					ng-options="prog.name for prog in programList">
+			</select>
 		</div>
-		<br/>
-		<div class="col-md-6">
-			Search: <input ng-model="searchText">
-			<br/>
-			<select ng-model="clinic" ng-options="clinic.name for clinic in clinics | filter:searchText"></select>
+
+		<div class="col-sm-4">
+			<strong>Select Clinic</strong>
+			<select id="clinicSelector"
+					class="form-control"
+					ng-model="clinic"
+					ng-options="clinic.name for clinic in clinics | filter:searchText">
+				<option value="">-- Select Clinic --</option>
+			</select>
 		</div>
-		<br/>
-		<br/>
-		<br/>
-		<a href="#/formView/{{clinic.id}}/{{program.id}}">GOOO</a>
+
+		<div class="col-sm-4">
+			</br>
+			<input class="form-control"
+				   ng-model="searchText"
+				   placeholder="Search Clinics">
+		</div>
+
+		<div class="row">
+			<div class="col-xs-2 col-xs-offset-5">
+				</br>
+				</br>
+				<a class="btn btn-info" href="#/formView/{{clinic.id}}/{{program.id}}}">GOOO</a>
+			</div>
+		</div>
 	</div>
 </div>
