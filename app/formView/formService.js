@@ -70,10 +70,13 @@ angular.module('myApp.formView', ['ngRoute'])
             }
             buildTable();
         }
-
-        function initPage() {
-            getClinic();
-            getProgramStages();
+        
+        function resetFormValues() {
+            angular.forEach($scope.parsedDataElements, function (values, key) {
+                angular.forEach(values, function(value) {
+                    value.value = false;
+                })
+            })
         }
 
         function buildTable() {
@@ -85,19 +88,12 @@ angular.module('myApp.formView', ['ngRoute'])
             });
         }
 
-        //deprecated
-        /*
-        function initCheckboxes(){
-            angular.forEach($scope.parsedDataElements, function(elements, key){
-                angular.forEach(elements, function (element) {
-                    $scope.checkboxes.push({id: element.id, value: true});
-                });
-            });
+        function initPage() {
+            getClinic();
+            getProgramStages();
         }
-        */
 
         $scope.post_patient = function(){
-            console.log(angular.toJson($scope.parsedDataElements, true));
             if($scope.patientID == null){
                 alert("You have to specify Patient ID");
             }else{
@@ -125,5 +121,4 @@ angular.module('myApp.formView', ['ngRoute'])
             Weight: [{name: "Journal", id: "83jhyth"}, {name: "ART Registry", id: "456hhyht"} , {name: "Database", id: "09gdfs"}]
         };
         */
-
     });
