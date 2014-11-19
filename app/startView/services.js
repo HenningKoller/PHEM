@@ -11,6 +11,8 @@ angular.module('myApp.startView', ['ngRoute'])
 
 
     .controller("startController", function($scope, $http) {
+        $scope.checkboxes = [];
+
         initPage();
 
         $scope.getProg = function() {
@@ -128,10 +130,10 @@ angular.module('myApp.startView', ['ngRoute'])
         };
 
         $scope.rows = {
-            Age: ["Journal", "ART Registry", "Database"],
-            Sex: ["Journal", "ART Registry", "Database"],
-            Height: ["Journal", "ART Registry", "Database"],
-            Weight: ["Journal", "ART Registry", "Database"]
+            Age: [["Journal", "gsuofd16543"], ["ART Registry", "3fasd3234"], ["Database", "gsresgfj123"]],
+            Sex: [["Journal", "d16543"], ["ART Registry", "3fasd3234"], ["Database", "pppp3"]],
+            Height: [["Journal", "tyiut43"], ["ART Registry", "4iiuoyj"], ["Database", "2349gsdflk"]],
+            Weight: [["Journal", "83jhyth"], ["ART Registry", "456hhyht"], ["Database", "09gdfs"]]
         };
 
         $scope.rowLength = 0;
@@ -143,10 +145,17 @@ angular.module('myApp.startView', ['ngRoute'])
             }
         });
 
-        $scope.checkboxes = {
-            checked : []
-        };
 
+
+        function initCheckboxes(){
+            angular.forEach($scope.checkboxes, function(key, value){
+                console.log(key);
+                console.log(value);
+                $scope.checkboxes.push("value[1] NO");
+            });
+
+
+        };
 
         $scope.clear_form = function(){
             console.log("Refreshing page to clear data");
