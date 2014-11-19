@@ -3,7 +3,7 @@
 angular.module('myApp.formView', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProivder) {
-        $routeProivder.when('/formView', {
+        $routeProivder.when('/formView/:clinicId/:progId', {
             templateUrl: 'formView/form.html',
             controller: 'formController'
         });
