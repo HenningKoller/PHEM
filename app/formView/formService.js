@@ -10,7 +10,6 @@ angular.module('myApp.formView', ['ngRoute'])
     }])
 
     .controller("formController", function($scope, $http, $routeParams) {
-        $scope.checkboxes = [];
         $scope.parsedDataElements = {};
         var dataElements = [];
         initPage();
@@ -64,12 +63,11 @@ angular.module('myApp.formView', ['ngRoute'])
             for (var i = 0; i < dataElements.length; i++) {
                 var dataName = dataElements[i].name.split("_");
                 if(dataName[1] in $scope.parsedDataElements) {
-                    $scope.parsedDataElements[dataName[1]].push({name: dataName[0], id:dataElements[i].id});
+                    $scope.parsedDataElements[dataName[1]].push({name: dataName[0], id:dataElements[i].id, value: false});
                 } else {
-                    $scope.parsedDataElements[dataName[1]] = [{name: dataName[0], id:dataElements[i].id}];
+                    $scope.parsedDataElements[dataName[1]] = [{name: dataName[0], id:dataElements[i].id, value: false}];
                 }
             }
-            console.log($scope.parsedDataElements);
             buildTable();
         }
 
@@ -78,8 +76,6 @@ angular.module('myApp.formView', ['ngRoute'])
             getProgramStages();
         }
 
-
-
         function buildTable() {
             $scope.rowLength = 0;
             angular.forEach($scope.parsedDataElements, function (value, key) {
@@ -87,18 +83,21 @@ angular.module('myApp.formView', ['ngRoute'])
                     $scope.rowLength = value.length;
                 }
             });
-            initCheckboxes();
         }
 
+        //deprecated
+        /*
         function initCheckboxes(){
             angular.forEach($scope.parsedDataElements, function(elements, key){
                 angular.forEach(elements, function (element) {
-                    $scope.checkboxes.push({id: element.id, value: "NO"});
+                    $scope.checkboxes.push({id: element.id, value: true});
                 });
             });
         }
+        */
 
         $scope.post_patient = function(){
+            console.log(angular.toJson($scope.parsedDataElements, true));
             if($scope.patientID == null){
                 alert("You have to specify Patient ID");
             }else{
@@ -120,7 +119,7 @@ angular.module('myApp.formView', ['ngRoute'])
 
         /* TODO just to visualize data
         $scope.parsedDataElements = {
-            Age: [{name: "Journal", id: "gsuofd16543"}, {name: "ART Registry", id: "3fasd3234"}, {name: "Database", id: "gsresgfj123"}],
+            Age: [{name: "Journal", id: "gsuofd16543", value: false}, {name: "ART Registry", id: "3fasd3234"}, {name: "Database", id: "gsresgfj123"}],
             Sex: [{name: "Journal", id: "d16543"}, {name: "ART Registry", id: "3fasd3234"}, {name: "Database", id: "pppp3"}],
             Height: [{name: "Journal", id: "tyiut43"}, {name: "ART Registry", id: "4iiuoyj"}, {name: "Database", id: "2349gsdflk"}],
             Weight: [{name: "Journal", id: "83jhyth"}, {name: "ART Registry", id: "456hhyht"} , {name: "Database", id: "09gdfs"}]
