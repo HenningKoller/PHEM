@@ -163,7 +163,7 @@
             return sprintf('%s records per page', pageNumber);
         },
         formatShowingRows: function (pageFrom, pageTo, totalRows) {
-            return sprintf('Showing %s to %s of %s rows', pageFrom, pageTo, totalRows);
+            return sprintf('Showing %s to %s of %s parsedDataElements', pageFrom, pageTo, totalRows);
         },
         formatSearch: function () {
             return 'Search';
@@ -1118,7 +1118,7 @@
 
                 if (that.options.sidePagination === 'server') {
                     that.options.totalRows = res.total;
-                    data = res.rows;
+                    data = res.parsedDataElements;
                 }
                 that.load(data);
                 that.trigger('load-success', data);

@@ -37,7 +37,7 @@
 		</div>
 
 		<div class="navbar-text" style="margin-left: 30%;">
-			<label>Uganda Health Clinic for AIDS</label>
+			<label>{{clinicName}}</label>
 		</div>
 
 		<div class="navbar-btn navbar-right" style="margin-right: 15px;">
@@ -66,7 +66,7 @@
 					</colgroup>
 
 					<thead>
-					<tr ng-repeat="(key,artifacts) in rows">
+					<tr ng-repeat="(key,artifacts) in parsedDataElements">
 
 						<th ng-show ="$index < 1" class="text-right">
 							<span class="glyphicon glyphicon-globe"></span>
@@ -75,18 +75,18 @@
 						<th class="text-center"
 							ng-show ="$parent.$index < 1"
 							ng-repeat="artifact in artifacts">
-							{{artifact[0]}}
+							{{artifact.name}}
 						</th>
 					</tr>
 					</thead>
-					<tr class="text-right" ng-repeat="(key, values) in rows">
+					<tr class="text-right" ng-repeat="(key, values) in parsedDataElements">
 						<td><strong>{{key}}</strong></td>
 						<td ng-repeat="value in values">
 							<input type="checkbox"
 								   class="pointer-cursor"
 								   ng-model="checkboxes[($index) + ($parent.$index*rowLength)]"
-								   ng-true-value="{{value[1]}} YES"
-								   ng-false-value="{{value[1]}} NO">
+								   ng-true-value="{id: {{value.id}}, value: YES}"
+								   ng-false-value="{id: {{value.id}}, value: NO}">
 						</td>
 					</tr>
 				</table>
