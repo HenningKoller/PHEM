@@ -12,7 +12,19 @@ angular.module('myApp.formView', ['ngRoute'])
     .controller("formController", function($scope, $http, $routeParams) {
         $scope.parsedDataElements = {};
         var dataElements = [];
+        var date = new Date();
+        var pos;
         initPage();
+
+        var postJson = {
+            program: $routeParams.progId,
+            orgUnit: $routeParams.clinicId,
+            eventDate: date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate(),
+            status: "COMPLETED",
+            storedBy: "admin",
+            coordinate: {latitude: "xx", longitude: "yy"},
+            dataValues: []
+        };
 
         function getClinic() {
             $http.get("http://inf5750-20.uio.no/api/organisationUnits/"+$routeParams.clinicId+".json")
@@ -20,9 +32,9 @@ angular.module('myApp.formView', ['ngRoute'])
                     console.log("Got Clinic");
                     $scope.clinicName = data.name;
                 })
-                .error(function (error) {
+                .error(function (data, status, headers) {
                     console.log("Error getting clinic");
-                    console.log(error);
+                    console.log(status);
                 });
         }
 
@@ -34,9 +46,9 @@ angular.module('myApp.formView', ['ngRoute'])
                     //TODO can be more than one stage
                     getDataElements(data.programStages[0].id);
                 })
-                .error(function (error) {
+                .error(function (data, status, headers) {
                     console.log("Error getting programStages");
-                    console.log(error);
+                    console.log(status);
                 });
         }
 
@@ -46,9 +58,23 @@ angular.module('myApp.formView', ['ngRoute'])
                     console.log("Got DataElements");
                     parseStageElements(data.programStageDataElements);
                 })
-                .error(function (error) {
+                .error(function (data, status, headers) {
                     console.log("Error getting programStages");
-                    console.log(error);
+                    console.log(status);
+                });
+        }
+
+        function postForm() {
+            console.log("Post");
+            $http.post("http://inf5750-20.uio.no/api/events", postJson)
+                .success(function (data, status, headers) {
+                    console.log("Post worked!")
+                    console.log(status);
+                    console.log(data);
+                })
+                .error(function (data, status, headers) {
+                    console.log("Post failed");
+                    console.log(status);
                 });
         }
 
@@ -70,14 +96,6 @@ angular.module('myApp.formView', ['ngRoute'])
             }
             buildTable();
         }
-        
-        function resetFormValues() {
-            angular.forEach($scope.parsedDataElements, function (values, key) {
-                angular.forEach(values, function(value) {
-                    value.value = false;
-                })
-            })
-        }
 
         function buildTable() {
             $scope.rowLength = 0;
@@ -88,24 +106,51 @@ angular.module('myApp.formView', ['ngRoute'])
             });
         }
 
+        function resetFormValues() {
+            angular.forEach($scope.parsedDataElements, function (values, key) {
+                angular.forEach(values, function(value) {
+                    value.value = false;
+                })
+            })
+        }
+
+        function createPostJson() {
+            postJson.coordinate.latitude = pos.coords.latitude;
+            postJson.coordinate.longitude = pos.coords.longitude;
+
+            angular.forEach($scope.parsedDataElements, function (values, key) {
+                angular.forEach(values, function(value) {
+                    postJson.dataValues.push({dataElement: value.id, value: value.value});
+                })
+            })
+        }
+
+        function getGeoLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function (position) {
+                    $scope.$apply(function () {
+                        pos = position;
+                    });
+                });
+            }
+        }
+
         function initPage() {
             getClinic();
             getProgramStages();
+            getGeoLocation();
         }
 
         $scope.post_patient = function(){
+            createPostJson();
+            console.log(postJson);
             if($scope.patientID == null){
                 alert("You have to specify Patient ID");
             }else{
                 console.log("Posting patient: " + $scope.patientID + " to db....");
+                //postForm();
                 location.reload();
             }
-        };
-
-        $scope.setPatient = function(name){
-            $scope.patientID = name;
-            console.log("name is: " + name);
-            console.log("patientID is now " + $scope.patientID)
         };
 
         $scope.clear_form = function(){
@@ -114,11 +159,11 @@ angular.module('myApp.formView', ['ngRoute'])
         };
 
         /* TODO just to visualize data
-        $scope.parsedDataElements = {
-            Age: [{name: "Journal", id: "gsuofd16543", value: false}, {name: "ART Registry", id: "3fasd3234"}, {name: "Database", id: "gsresgfj123"}],
-            Sex: [{name: "Journal", id: "d16543"}, {name: "ART Registry", id: "3fasd3234"}, {name: "Database", id: "pppp3"}],
-            Height: [{name: "Journal", id: "tyiut43"}, {name: "ART Registry", id: "4iiuoyj"}, {name: "Database", id: "2349gsdflk"}],
-            Weight: [{name: "Journal", id: "83jhyth"}, {name: "ART Registry", id: "456hhyht"} , {name: "Database", id: "09gdfs"}]
-        };
-        */
+         $scope.parsedDataElements = {
+         Age: [{name: "Journal", id: "gsuofd16543", value: false}, {name: "ART Registry", id: "3fasd3234"}, {name: "Database", id: "gsresgfj123"}],
+         Sex: [{name: "Journal", id: "d16543"}, {name: "ART Registry", id: "3fasd3234"}, {name: "Database", id: "pppp3"}],
+         Height: [{name: "Journal", id: "tyiut43"}, {name: "ART Registry", id: "4iiuoyj"}, {name: "Database", id: "2349gsdflk"}],
+         Weight: [{name: "Database", id: "09gdfs"}]
+         };
+         */
     });

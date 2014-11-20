@@ -19,9 +19,9 @@ angular.module('myApp.startView', ['ngRoute'])
                     $scope.programList = data.programs;
                     $scope.program = $scope.programList[0];
                 })
-                .error(function(error) {
+                .error(function(errodata, status, headers) {
                     console.log("Error getting programs");
-                    console.log(error);
+                    console.log(status);
                 });
         }
 
@@ -32,9 +32,9 @@ angular.module('myApp.startView', ['ngRoute'])
                     $scope.clinics = data.organisationUnits;
                     $scope.clinic = $scope.clinics[0];
                 })
-                .error(function(error) {
+                .error(function(data, status, headers) {
                     console.log("Error getting clinics");
-                    console.log(error);
+                    console.log(status);
                 });
         }
 
