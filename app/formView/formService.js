@@ -144,13 +144,9 @@ angular.module('myApp.formView', ['ngRoute'])
         $scope.post_patient = function(){
             createPostJson();
             console.log(postJson);
-            if($scope.patientID == null){
-                alert("You have to specify Patient ID");
-            }else{
-                console.log("Posting patient: " + $scope.patientID + " to db....");
-                //postForm();
-                location.reload();
-            }
+            console.log("Posting patient: " + $scope.patientID + " to db....");
+            postForm();
+            location.reload();
         };
 
         $scope.clear_form = function(){
