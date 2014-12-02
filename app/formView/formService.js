@@ -3,7 +3,7 @@
 angular.module('myApp.formView', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProivder) {
-        $routeProivder.when('/formView/:clinicId/:progId', {
+        $routeProivder.when('/formView/:clinicId/:stageId/:progId', {
             templateUrl: 'formView/form.html',
             controller: 'formController'
         });
@@ -38,28 +38,14 @@ angular.module('myApp.formView', ['ngRoute'])
                 });
         }
 
-        function getProgramStages() {
-            $http.get("http://inf5750-20.uio.no/api/programs/"+$routeParams.progId+".json")
+        function getProgramStages(id) {
+            $http.get("http://inf5750-20.uio.no/api/programStages/"+$routeParams.stageId+".json")
                 .success(function (data, status, headers) {
-                    console.log("Got programStages");
-
-                    //TODO can be more than one stage
-                    getDataElements(data.programStages[0].id);
-                })
-                .error(function (data, status, headers) {
-                    console.log("Error getting programStages");
-                    console.log(status);
-                });
-        }
-
-        function getDataElements(id) {
-            $http.get("http://inf5750-20.uio.no/api/programStages/"+id+".json")
-                .success(function (data, status, headers) {
-                    console.log("Got DataElements");
+                    console.log("Got ProgramStage");
                     parseStageElements(data.programStageDataElements);
                 })
                 .error(function (data, status, headers) {
-                    console.log("Error getting programStages");
+                    console.log("Error getting programStage");
                     console.log(status);
                 });
         }
