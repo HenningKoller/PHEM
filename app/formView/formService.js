@@ -9,7 +9,7 @@ angular.module('myApp.formView', ['ngRoute'])
         });
     }])
 
-    .controller("formController", function($scope, $http, $routeParams) {
+    .controller("formController", function($scope, $http, $routeParams, $location) {
         $scope.parsedDataElements = {};
         var dataElements = [];
         var date = new Date();
@@ -138,6 +138,11 @@ angular.module('myApp.formView', ['ngRoute'])
         $scope.clear_form = function(){
             console.log("Refreshing page to clear data");
             location.reload();
+        };
+
+        $scope.go_home = function(){
+            console.log("Home");
+            $location.path('\startView');
         };
 
         /* TODO just to visualize data
