@@ -132,12 +132,12 @@ angular.module('myApp.formView', ['ngRoute'])
             console.log(postJson);
             console.log("Posting patient: " + $scope.patientID + " to db....");
             postForm();
-            location.reload();
+            $location.reload();
         };
 
         $scope.clear_form = function(){
             console.log("Refreshing page to clear data");
-            location.reload();
+            $location.reload();
         };
 
         $scope.go_home = function(){
