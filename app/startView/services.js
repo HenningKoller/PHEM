@@ -9,53 +9,53 @@ angular.module('myApp.startView', ['ngRoute'])
         });
     }])
 
-    .controller("startController", function($scope, $http) {
+    .controller("startController", function($scope, $http, $log) {
         initPage();
 
         function getPrograms() {
             $http.get('http://inf5750-20.uio.no/api/programs.json')
                 .success(function(data, status, headers) {
-                    console.log("Got Programs")
+                    $log.info("Fetched programs");
                     $scope.programList = data.programs;
                     $scope.program = $scope.programList[0];
                     getProgramStages();
                 })
                 .error(function(errodata, status, headers) {
-                    console.log("Error getting programs");
-                    console.log(status);
+                    $log.error("Error getting programs");
+                    $log.debug(status);
                 });
         }
 
         function getProgramStages() {
             $http.get("http://inf5750-20.uio.no/api/programs/"+$scope.program.id +".json")
                 .success(function (data, status, headers) {
-                    console.log("Got programStages");
+                    $log.info("Fetched programStages");
 
                     $scope.stageList = data.programStages;
                     $scope.stage = $scope.stageList[0];
                 })
                 .error(function (data, status, headers) {
-                    console.log("Error getting programStages");
-                    console.log(status);
+                    $log.error("Error getting programStages");
+                    $log.debug(status);
                 });
         }
 
         function getClinics() {
             $http.get('http://inf5750-20.uio.no/api/organisationUnitGroups/RXL3lPSK8oG.json')
                 .success(function(data, status, headers) {
-                    console.log("Got clinics")
+                    $log.info("Fetched clinics");
                     $scope.clinics = data.organisationUnits;
                     $scope.clinic = $scope.clinics[0];
                 })
                 .error(function(data, status, headers) {
-                    console.log("Error getting clinics");
-                    console.log(status);
+                    $log.error("Error getting clinics");
+                    $log.debug(status);
                 });
         }
 
         $scope.getStages = function() {
-            console.log("HEI");
             getProgramStages();
+            $log.info("Fetched stages");
         };
 
         function initPage() {
