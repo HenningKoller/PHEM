@@ -9,7 +9,7 @@ angular.module('myApp.formView', ['ngRoute'])
         });
     }])
 
-    .controller("formController", function($scope, $http, $routeParams) {
+    .controller("formController", function($scope, $http, $routeParams, $location, $log) {
         $scope.parsedDataElements = {};
         var dataElements = [];
         var date = new Date();
@@ -30,24 +30,24 @@ angular.module('myApp.formView', ['ngRoute'])
         function getClinic() {
             $http.get("http://inf5750-20.uio.no/api/organisationUnits/"+$routeParams.clinicId+".json")
                 .success(function (data, status, headers) {
-                    console.log("Got Clinic");
+                    $log.info("Got Clinic");
                     $scope.clinicName = data.name;
                 })
                 .error(function (data, status, headers) {
-                    console.log("Error getting clinic");
-                    console.log(status);
+                    $log.info("Error getting clinic");
+                    $log.debug(status);
                 });
         }
 
         function getProgramStages(id) {
             $http.get("http://inf5750-20.uio.no/api/programStages/"+$routeParams.stageId+".json")
                 .success(function (data, status, headers) {
-                    console.log("Got ProgramStage");
+                    $log.info("Got ProgramStage");
                     parseStageElements(data.programStageDataElements);
                 })
                 .error(function (data, status, headers) {
-                    console.log("Error getting programStage");
-                    console.log(status);
+                    $log.error("Error getting programStage");
+                    $log.debug(status);
                 });
         }
 
@@ -55,13 +55,13 @@ angular.module('myApp.formView', ['ngRoute'])
             console.log("Post");
             $http.post("http://inf5750-20.uio.no/api/events", postJson)
                 .success(function (data, status, headers) {
-                    console.log("Post worked!")
-                    console.log(status);
-                    console.log(data);
+                    $log.info("Post worked!")
+                    $log.debug(status);
+                    $log.debug(data);
                 })
                 .error(function (data, status, headers) {
-                    console.log("Post failed");
-                    console.log(status);
+                    $log.info("Post failed");
+                    $log.debug(status);
                 });
         }
 
@@ -130,15 +130,20 @@ angular.module('myApp.formView', ['ngRoute'])
 
         $scope.post_patient = function(){
             createPostJson();
-            console.log(postJson);
-            console.log("Posting patient: " + $scope.patientID + " to db....");
+            $log.info(postJson);
+            $log.info("Posting patient: " + $scope.patientID + " to db....");
             postForm();
-            location.reload();
+            $location.reload();
         };
 
         $scope.clear_form = function(){
-            console.log("Refreshing page to clear data");
-            location.reload();
+            $log.info("Refreshing page to clear data");
+            $location.reload();
+        };
+
+        $scope.go_home = function(){
+            $log.info("Going to homepage");
+            $location.path('\startView');
         };
 
         /* TODO just to visualize data
