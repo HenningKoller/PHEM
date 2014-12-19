@@ -9,7 +9,7 @@ angular.module('myApp.formView', ['ngRoute'])
         });
     }])
 
-    .controller("formController", function($scope, $http, $routeParams, $location, $log) {
+    .controller("formController", function($scope, $http, $routeParams, $location, $log, $route) {
         $scope.parsedDataElements = {};
         var dataElements = [];
         var date = new Date();
@@ -133,12 +133,12 @@ angular.module('myApp.formView', ['ngRoute'])
             $log.info(postJson);
             $log.info("Posting patient to db...");
             postForm();
-            $location.reload();
+            $route.reload();
         };
 
         $scope.clear_form = function(){
             $log.info("Refreshing page to clear data");
-            $location.reload();
+            $route.reload();
         };
 
         $scope.go_home = function(){
