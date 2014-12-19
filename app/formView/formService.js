@@ -52,10 +52,10 @@ angular.module('myApp.formView', ['ngRoute'])
         }
 
         function postForm() {
-            console.log("Post");
+            $log.info("Posting form");
             $http.post("http://inf5750-20.uio.no/api/events", postJson)
                 .success(function (data, status, headers) {
-                    $log.info("Post worked!")
+                    $log.info("Post worked!");
                     $log.debug(status);
                     $log.debug(data);
                 })
@@ -131,7 +131,7 @@ angular.module('myApp.formView', ['ngRoute'])
         $scope.post_patient = function(){
             createPostJson();
             $log.info(postJson);
-            $log.info("Posting patient: " + $scope.patientID + " to db....");
+            $log.info("Posting patient to db...");
             postForm();
             $location.reload();
         };
