@@ -37,16 +37,9 @@ appServices.factory('apiServices', function ($resource, $rootScope, $q, $http) {
                     }
                 });
         },
-        getOrganisationUnitGroups: function () {
-            return $resource($rootScope.rootUrl + '/api/organisationUnitGroups.json', {},
-                {
-                    query: {
-                        isArray: false
-                    }
-                });
-        },
         getOrganizationUnit : function(name){
-            /*
+
+            /* Promis API version. Couldn't get to work due to: Type Error: Object not a function.
             return $q(function(resolve, reject){
                 $http.get($rootScope.rootUrl + "/api/organisationUnitLevels.json").
                     success(function(data) {
