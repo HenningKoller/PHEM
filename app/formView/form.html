@@ -50,6 +50,17 @@
 			<div id="item-table">
 				<table class="table-hover table-condensed table table-bordered table-striped">
 					<thead>
+					<tr>
+						<th class="text-left">
+							<span class="glyphicon glyphicon-globe"></span>
+							Artifact Entries
+						</th>
+						<th ng-repeat="artifact in allArtifacts", class="text-center">
+							{{artifact}}
+						</th>
+					</tr>
+					</thead>
+					<!--
 					<tr ng-repeat="(key,artifacts) in parsedDataElements">
 
 						<th ng-show ="$index < 1" class="text-left">
@@ -61,8 +72,7 @@
 							ng-repeat="artifact in artifacts">
 							{{artifact.name}}
 						</th>
-					</tr>
-					</thead>
+					</tr>-->
 					<tr class="text-left" ng-repeat="(key, artifacts) in parsedDataElements">
 						<td><strong>{{key}}</strong></td>
 						<td class="text-center"ng-repeat="artifact in artifacts">

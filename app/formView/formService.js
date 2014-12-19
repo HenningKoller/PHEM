@@ -11,6 +11,7 @@ services.config(['$routeProvider', function($routeProivder) {
 
 services.controller("formController",['$scope', '$http', '$routeParams', '$location', '$log', '$route', 'apiServices', function($scope, $http, $routeParams, $location, $log, $route, apiServices) {
     $scope.parsedDataElements = {};
+    $scope.allArtifacts = {};
     var dataElements = [];
     var date = new Date();
     var pos;
@@ -83,6 +84,12 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
     function parseDataElement(dataElements) {
         for (var i = 0; i < dataElements.length; i++) {
             var dataName = dataElements[i].name.split("_");
+
+            if(!(dataName[0] in $scope.allArtifacts)) {
+                $scope.allArtifacts[dataName[0]] = [{name: dataName[0]}];
+                $log.debug("Stored artifact in all artifacts: " + dataName[0]);
+            }
+
             if(dataName[1] in $scope.parsedDataElements) {
                 $scope.parsedDataElements[dataName[1]].push({name: dataName[0], id:dataElements[i].id, value: false});
             } else {
@@ -99,6 +106,7 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
                 $scope.rowLength = value.length;
             }
         });
+
     }
 
     function resetFormValues() {
