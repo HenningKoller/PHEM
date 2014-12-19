@@ -9,7 +9,7 @@ services.config(['$routeProvider', function($routeProivder) {
     });
 }]);
 
-services.controller("formController",[$scope, $http, $routeParams, $location, $log, $route, apiServices, function($scope, $http, $routeParams, $location, $log, $route, apiServices) {
+services.controller("formController",['$scope', '$http', '$routeParams', '$location', '$log', '$route', 'apiServices', function($scope, $http, $routeParams, $location, $log, $route, apiServices) {
     $scope.parsedDataElements = {};
     var dataElements = [];
     var date = new Date();
