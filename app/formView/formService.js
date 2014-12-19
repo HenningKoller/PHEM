@@ -142,7 +142,7 @@ angular.module('myApp.formView', ['ngRoute'])
 
         $scope.go_home = function(){
             $log.info("Going to homepage");
-            $location.path('\startView');
+            $location.path('/startView');
         };
 
         /* TODO just to visualize data
