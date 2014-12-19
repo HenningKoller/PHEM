@@ -46,29 +46,17 @@ services.controller("startController", ['$http', '$scope', '$log', 'apiServices'
     }
 
     function getClinics() {
-        var clinicOrgUnitId="test";
-        apiServices.getOrganisationUnitGroups().query(function(data) {
-            $log.info("Fetched organisationUnitGroups");
-
-            for(var i = 0; i < data.organisationUnitGroups.length; i++) {
-                $log.debug(data.organisationUnitGroups[i].name);
-                if (data.organisationUnitGroups[i].name === "Clinic") {
-                    $log.debug("great success!");
-                    clinicOrgUnitId = data.organisationUnitGroups[i].id;
-                }
-            }
-
-        }, function(reason) {
-            $log.error("Error getting OrgUnitGroups");
-            $log.debug(reason);
-        });
-
-        apiServices.getClinics(clinicOrgUnitId).query(function(data) {
-            $scope.clinics = data.organisationUnits;
-            $scope.clinic  = $scope.clinics[0];
-        }, function(reason) {
-            $log.error("Error getting clinics");
-            $log.debug(reason);
+        apiServices.getOrganizationUnit('Clinic').then(function(res){
+            apiServices.getClinics(res).query(function(data) {
+                $log.info("Fetched Clinics");
+                $scope.clinics = data.organisationUnits;
+                $scope.clinic  = $scope.clinics[0];
+            }, function(reason) {
+                $log.error("Error getting clinics");
+                $log.debug(reason);
+            });
+        }, function(error){
+            $log.error("Error: " + error);
         });
     }
 
