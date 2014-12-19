@@ -68,6 +68,14 @@ appServices.factory('apiServices', function ($resource, $rootScope, $q, $http) {
                     deffered.reject("Error: " + status);
                 });
             return deffered.promise;
+        },
+        getStages: function (id) {
+            return $resource($rootScope.rootUrl + '/api/programStages/' + id + '.json', {},
+                {
+                    query: {
+                        isArray: false
+                    }
+                });
         }
     }
 });
