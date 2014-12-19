@@ -4,8 +4,9 @@ var appServices = angular.module('appServices', ['ngResource']);
 
 appServices.factory('apiServices', function ($resource, $rootScope) {
 
+
         var xhReq = new XMLHttpRequest();
-        xhReq.open("GET", "../manifest.webapp", false);
+        xhReq.open("GET", "manifest.webapp", false);
         xhReq.send(null);
 
         var serverResponse = JSON.parse(xhReq.responseText);
@@ -20,5 +21,14 @@ appServices.factory('apiServices', function ($resource, $rootScope) {
                         }
                     });
             }
+            /*,
+            getProgramStages: function (id){
+                return $resource($rootScope.rootUrl + 'api/programs/'+id, {},
+                    {
+                        query: {
+                            isArray: false
+                        }
+                    });
+            }*/
         }
     });
