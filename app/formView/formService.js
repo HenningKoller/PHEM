@@ -9,7 +9,7 @@ services.config(['$routeProvider', function($routeProivder) {
     });
 }]);
 
-services.controller("formController", function($scope, $http, $routeParams, $location, $log, $route, apiServices) {
+services.controller("formController",[$scope, $http, $routeParams, $location, $log, $route, apiServices, function($scope, $http, $routeParams, $location, $log, $route, apiServices) {
     $scope.parsedDataElements = {};
     var dataElements = [];
     var date = new Date();
@@ -163,4 +163,4 @@ services.controller("formController", function($scope, $http, $routeParams, $loc
      Weight: [{name: "Database", id: "09gdfs"}]
      };
      */
-});
+}]);
