@@ -27,16 +27,16 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
     };
 
 
-    function getClinic() {/*
-        apiServices.getClinics(+$routeParams.clinicId).query(function(data) {
-            $log.info("Got Clinic");
-            $log.debug(data.name);
+    function getClinic() {
+        apiServices.getClinic($routeParams.clinicId).get(function(data) {
+            $log.info("Fetched Clinic");
             $scope.clinicName = data.name;
         }, function(reason) {
-            $log.error("Error getting clinics");
+            $log.error("Error getting Clinic");
             $log.debug(reason);
-        });*/
+        });
 
+        /*
          $http.get("http://inf5750-20.uio.no/api/organisationUnits/"+$routeParams.clinicId+".json")
          .success(function (data, status, headers) {
          $log.info("Got Clinic");
@@ -45,7 +45,7 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
          .error(function (data, status, headers) {
          $log.info("Error getting clinic");
          $log.debug(status);
-         });
+         });*/
     }
 
     function getProgramStages(id) {

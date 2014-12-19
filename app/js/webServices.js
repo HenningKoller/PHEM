@@ -37,6 +37,9 @@ appServices.factory('apiServices', function ($resource, $rootScope, $q, $http) {
                     }
                 });
         },
+        getClinic: function (id) {
+            return $resource($rootScope.rootUrl + "/api/organisationUnits/" + id + ".json");
+        },
         getOrganizationUnit : function(name){
 
             /* Promis API version. Couldn't get to work due to: Type Error: Object not a function.
