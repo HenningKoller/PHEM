@@ -46,7 +46,7 @@ services.controller("startController", ['$http', '$scope', '$log', 'apiServices'
     }
 
     function getClinics() {
-        var clinicOrgUnitId="test";
+        var clinicOrgUnitId="RXL3lPSK8oG";
         apiServices.getOrganisationUnitGroups().query(function(data) {
             $log.info("Fetched organisationUnitGroups");
 

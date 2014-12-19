@@ -37,6 +37,7 @@ appServices.factory('apiServices', function ($resource, $rootScope) {
                         }
                     });
             },
+
             getOrganisationUnitGroups: function () {
                 return $resource($rootScope.rootUrl + '/api/organisationUnitGroups.json', {},
                     {
