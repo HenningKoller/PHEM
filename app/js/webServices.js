@@ -20,15 +20,14 @@ appServices.factory('apiServices', function ($resource, $rootScope) {
                             isArray: false
                         }
                     });
-            }
-            /*,
+            },
             getProgramStages: function (id){
-                return $resource($rootScope.rootUrl + 'api/programs/'+id, {},
+                return $resource($rootScope.rootUrl + '/api/programs/'+id+'.json', {},
                     {
                         query: {
                             isArray: false
                         }
                     });
-            }*/
+            }
         }
     });
