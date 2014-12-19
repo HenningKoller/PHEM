@@ -12,7 +12,7 @@ appServices.factory('apiServices', function ($resource, $rootScope) {
         var serverResponse = JSON.parse(xhReq.responseText);
         $rootScope.rootUrl = serverResponse.activities.dhis.href;
 
-        return  {
+        return {
             getProgram: function () {
                 return $resource($rootScope.rootUrl + '/api/programs.json', {},
                     {
@@ -21,8 +21,24 @@ appServices.factory('apiServices', function ($resource, $rootScope) {
                         }
                     });
             },
-            getProgramStages: function (id){
-                return $resource($rootScope.rootUrl + '/api/programs/'+id+'.json', {},
+            getProgramStages: function (id) {
+                return $resource($rootScope.rootUrl + '/api/programs/' + id + '.json', {},
+                    {
+                        query: {
+                            isArray: false
+                        }
+                    });
+            },
+            getClinics: function (id) {
+                return $resource($rootScope.rootUrl + '/api/organisationUnitGroups/' + id + '.json', {},
+                    {
+                        query: {
+                            isArray: false
+                        }
+                    });
+            },
+            getOrganisationUnitGroups: function () {
+                return $resource($rootScope.rootUrl + '/api/organisationUnitGroups.json', {},
                     {
                         query: {
                             isArray: false

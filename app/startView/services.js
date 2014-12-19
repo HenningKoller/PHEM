@@ -46,22 +46,36 @@ services.controller("startController", ['$http', '$scope', '$log', 'apiServices'
     }
 
     function getClinics() {
-        $http.get('http://inf5750-20.uio.no/api/organisationUnitGroups/RXL3lPSK8oG.json')
-            .success(function(data, status, headers) {
-                $log.info("Fetched clinics");
-                $scope.clinics = data.organisationUnits;
-                $scope.clinic = $scope.clinics[0];
-            })
-            .error(function(data, status, headers) {
-                $log.error("Error getting clinics");
-                $log.debug(status);
-            });
+        var clinicOrgUnitId="test";
+        apiServices.getOrganisationUnitGroups().query(function(data) {
+            $log.info("Fetched organisationUnitGroups");
+
+            for(var i = 0; i < data.organisationUnitGroups.length; i++) {
+                $log.debug(data.organisationUnitGroups[i].name);
+                if (data.organisationUnitGroups[i].name === "Clinic") {
+                    $log.debug("great success!");
+                    clinicOrgUnitId = data.organisationUnitGroups[i].id;
+                }
+            }
+
+        }, function(reason) {
+            $log.error("Error getting OrgUnitGroups");
+            $log.debug(reason);
+        });
+
+        apiServices.getClinics(clinicOrgUnitId).query(function(data) {
+            $scope.clinics = data.organisationUnits;
+            $scope.clinic  = $scope.clinics[0];
+        }, function(reason) {
+            $log.error("Error getting clinics");
+            $log.debug(reason);
+        });
     }
 
-     $scope.getStages = function() {
-     console.log("HEI");
-     getProgramStages();
-     };
+    $scope.getStages = function() {
+        $log.info("Getting new Stages");
+        getProgramStages();
+    };
 
     function initPage() {
         getPrograms();
