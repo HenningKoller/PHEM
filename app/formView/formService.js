@@ -26,6 +26,7 @@ angular.module('myApp.formView', ['ngRoute'])
             dataValues: []
         };
 
+
         function getClinic() {
             $http.get("http://inf5750-20.uio.no/api/organisationUnits/"+$routeParams.clinicId+".json")
                 .success(function (data, status, headers) {
