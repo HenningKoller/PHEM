@@ -49,14 +49,13 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
     }
 
     function getProgramStages(id) {
-        $http.get("http://inf5750-20.uio.no/api/programStages/"+$routeParams.stageId+".json")
-            .success(function (data, status, headers) {
+        apiServices.getStages($routeParams.stageId)
+            .query(function(data) {
                 $log.info("Got ProgramStage");
                 parseStageElements(data.programStageDataElements);
-            })
-            .error(function (data, status, headers) {
+            }, function(reason) {
                 $log.error("Error getting programStage");
-                $log.debug(status);
+                $log.debug(reason);
             });
     }
 
