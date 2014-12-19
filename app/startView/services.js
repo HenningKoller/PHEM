@@ -19,17 +19,21 @@ services.config(['$routeProvider', function($routeProivder) {
 
 services.controller("startController", ['$http', '$scope', '$log', 'apiServices', function($http, $scope, $log, apiServices) {
     initPage();
-    apiServices.getProgram().query(function(data){
-        console.log(data.programs);
-    }, function(reason){
-        console.log("Error getting programs")
-        console.log(reason);
-    });
     //console.log(apiServices.getProgramStages(44).query());
 
 
-     function getPrograms() {
 
+     function getPrograms() {
+         apiServices.getProgram().query(function(data){
+             $log.info("Got Programs");
+             $scope.programList = data.programs;
+             $scope.program = $scope.programList[0];
+             getProgramStages();
+         }, function(reason){
+             $log.error("Error getting programs")
+             $log.debug(reason);
+         });
+    /*
      $http.get('http://inf5750-20.uio.no/api/programs.json')
      .success(function(data, status, headers) {
      console.log("Got programs");
@@ -40,7 +44,7 @@ services.controller("startController", ['$http', '$scope', '$log', 'apiServices'
      .error(function(errodata, status, headers) {
      console.log("Error getting programs");
      console.log(status);
-     });}
+     });*/}
 
     function getProgramStages() {
         $http.get("http://inf5750-20.uio.no/api/programs/"+$scope.program.id +".json")
