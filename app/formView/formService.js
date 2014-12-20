@@ -105,24 +105,20 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
         });
 
         angular.forEach($scope.parsedDataElements, function (value, key)  {
-            $log.debug(key);
-            $log.debug("-----------");
+
             angular.forEach($scope.allArtifacts, function (value2, key2)  {
                 var hasArtifact = false;
                 for(var j = 0; j < value.length; j++) {
                     if(key2 === value[j].name) {
                         hasArtifact = true;
                         $scope.table[key].push(value[j]);
-                        $log.debug(key2 + " - true");
                     }
                 }
 
                 if(!hasArtifact) {
                     $scope.table[key].push({name: "noCheckBox"})
-                    $log.debug(key2 + " - false");
                 }
             });
-            $log.debug("");
         });
     }
 
@@ -138,9 +134,11 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
         postJson.coordinate.latitude = pos.coords.latitude;
         postJson.coordinate.longitude = pos.coords.longitude;
 
-        angular.forEach($scope.parsedDataElements, function (values, key) {
+        angular.forEach($scope.table, function (values, key) {
             angular.forEach(values, function(value) {
-                postJson.dataValues.push({dataElement: value.id, value: value.value});
+                if(value.name !== "noCheckBox") {
+                    postJson.dataValues.push({dataElement: value.id, value: value.value});
+                }
             })
         })
     }
@@ -165,7 +163,7 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
         createPostJson();
         $log.info(postJson);
         $log.info("Posting patient to db...");
-        postForm();
+        //postForm();
         $route.reload();
     };
 
