@@ -35,20 +35,9 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
             $log.error("Error getting Clinic");
             $log.debug(reason);
         });
-
-        /*
-         $http.get("http://inf5750-20.uio.no/api/organisationUnits/"+$routeParams.clinicId+".json")
-         .success(function (data, status, headers) {
-         $log.info("Got Clinic");
-         $scope.clinicName = data.name;
-         })
-         .error(function (data, status, headers) {
-         $log.info("Error getting clinic");
-         $log.debug(status);
-         });*/
     }
 
-    function getProgramStages(id) {
+    function getProgramStages() {
         apiServices.getStages($routeParams.stageId)
             .query(function(data) {
                 $log.info("Got ProgramStage");

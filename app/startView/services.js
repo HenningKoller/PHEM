@@ -2,14 +2,6 @@
 
 var services = angular.module('myApp.startView', ['ngRoute']);
 
-/*
- var apiServices;
- services.provider('service', [
- function() {
- var injector = angular.injector(['appServices']);
- apiServices = injector.get('apiServices');
- }]);*/
-
 services.config(['$routeProvider', function($routeProivder) {
     $routeProivder.when('/startView', {
         templateUrl: 'startView/startPage.html',
@@ -19,7 +11,6 @@ services.config(['$routeProvider', function($routeProivder) {
 
 services.controller("startController", ['$http', '$scope', '$log', 'apiServices', function($http, $scope, $log, apiServices) {
     initPage();
-
 
     function getPrograms() {
         apiServices.getProgram().query(function(data){
