@@ -11,6 +11,8 @@ services.config(['$routeProvider', function($routeProivder) {
 
 services.controller("formController",['$scope', '$http', '$routeParams', '$location', '$log', '$route', 'apiServices', function($scope, $http, $routeParams, $location, $log, $route, apiServices) {
     $scope.parsedDataElements = {};
+    $scope.allArtifacts = {};
+    $scope.table = {};
     var dataElements = [];
     var date = new Date();
     var pos;
@@ -72,6 +74,11 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
     function parseDataElement(dataElements) {
         for (var i = 0; i < dataElements.length; i++) {
             var dataName = dataElements[i].name.split("_");
+
+            if(!(dataName[0] in $scope.allArtifacts)) {
+                $scope.allArtifacts[dataName[0]] = {name: dataName[0]};
+            }
+
             if(dataName[1] in $scope.parsedDataElements) {
                 $scope.parsedDataElements[dataName[1]].push({name: dataName[0], id:dataElements[i].id, value: false});
             } else {
@@ -82,11 +89,25 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
     }
 
     function buildTable() {
-        $scope.rowLength = 0;
         angular.forEach($scope.parsedDataElements, function (value, key) {
-            if (value.length > $scope.rowLength) {
-                $scope.rowLength = value.length;
-            }
+            $scope.table[key] = [];
+        });
+
+        angular.forEach($scope.parsedDataElements, function (value, key)  {
+
+            angular.forEach($scope.allArtifacts, function (value2, key2)  {
+                var hasArtifact = false;
+                for(var j = 0; j < value.length; j++) {
+                    if(key2 === value[j].name) {
+                        hasArtifact = true;
+                        $scope.table[key].push(value[j]);
+                    }
+                }
+
+                if(!hasArtifact) {
+                    $scope.table[key].push({name: "noCheckBox"})
+                }
+            });
         });
     }
 
@@ -102,9 +123,11 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
         postJson.coordinate.latitude = pos.coords.latitude;
         postJson.coordinate.longitude = pos.coords.longitude;
 
-        angular.forEach($scope.parsedDataElements, function (values, key) {
+        angular.forEach($scope.table, function (values, key) {
             angular.forEach(values, function(value) {
-                postJson.dataValues.push({dataElement: value.id, value: value.value});
+                if(value.name !== "noCheckBox") {
+                    postJson.dataValues.push({dataElement: value.id, value: value.value});
+                }
             })
         })
     }
@@ -129,7 +152,7 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
         createPostJson();
         $log.info(postJson);
         $log.info("Posting patient to db...");
-        postForm();
+        //postForm();
         $route.reload();
     };
 

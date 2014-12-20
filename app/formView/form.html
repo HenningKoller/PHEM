@@ -50,7 +50,7 @@
 			<div id="item-table">
 				<table class="table-hover table-condensed table table-bordered table-striped">
 					<thead>
-					<tr ng-repeat="(key,artifacts) in parsedDataElements">
+					<tr ng-repeat="(key,artifacts) in table">
 
 						<th ng-show ="$index < 1" class="text-left">
 							<span class="glyphicon glyphicon-globe"></span>
@@ -63,10 +63,11 @@
 						</th>
 					</tr>
 					</thead>
-					<tr class="text-left" ng-repeat="(key, artifacts) in parsedDataElements">
+					<tr class="text-left" ng-repeat="(key, artifacts) in table">
 						<td><strong>{{key}}</strong></td>
-						<td class="text-center"ng-repeat="artifact in artifacts">
-							<input type="checkbox"
+
+						<td class="text-center" ng-repeat="artifact in artifacts">
+							<input ng-if="artifact.name !== 'noCheckBox'" type="checkbox"
 								   class="pointer-cursor"
 								   ng-model="artifact.value">
 						</td>

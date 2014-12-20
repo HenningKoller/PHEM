@@ -13,15 +13,14 @@ services.controller("startController", ['$http', '$scope', '$log', 'apiServices'
     initPage();
 
     function getPrograms() {
-        apiServices.getProgram().query(function(data){
-            $log.info("Got Programs");
-            $scope.programList = data.programs;
-            $scope.program = $scope.programList[0];
+        apiServices.getProgramByName("QA-Tool").then(function(res) {
+            $scope.program = res;
             getProgramStages();
-        }, function(reason){
-            $log.error("Error getting programs")
+        },function(reason) {
+            $log.info("Error getting program by name");
             $log.debug(reason);
         });
+
     }
 
     function getProgramStages() {
