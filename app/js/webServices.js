@@ -95,6 +95,9 @@ appServices.factory('apiServices', function ($resource, $rootScope, $q, $http) {
                         isArray: false
                     }
                 });
+        },
+        saveEvent: function() {
+            return $resource($rootScope.rootUrl + '/api/events/');
         }
     }
 });

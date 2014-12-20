@@ -52,16 +52,14 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
 
     function postForm() {
         $log.info("Posting form");
-        $http.post("http://inf5750-20.uio.no/api/events", postJson)
-            .success(function (data, status, headers) {
-                $log.info("Post worked!");
-                $log.debug(status);
-                $log.debug(data);
-            })
-            .error(function (data, status, headers) {
-                $log.info("Post failed");
-                $log.debug(status);
-            });
+        apiServices.saveEvent().save(postJson, function (data){
+            $log.info("Form was posted");
+            $log.debug(data);
+        },
+        function(reason){
+            $log.error("Form was not posted");
+            $log.debug(reason);
+        });
     }
 
     function parseStageElements(stageElements) {
@@ -150,9 +148,9 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
 
     $scope.post_patient = function(){
         createPostJson();
-        $log.info(postJson);
+        //$log.info(postJson);
         $log.info("Posting patient to db...");
-        //postForm();
+        postForm();
         $route.reload();
     };
 
@@ -165,13 +163,4 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
         $log.info("Going to homepage");
         $location.path('/startView');
     };
-
-    /* TODO just to visualize data
-     $scope.parsedDataElements = {
-     Age: [{name: "Journal", id: "gsuofd16543", value: false}, {name: "ART Registry", id: "3fasd3234"}, {name: "Database", id: "gsresgfj123"}],
-     Sex: [{name: "Journal", id: "d16543"}, {name: "ART Registry", id: "3fasd3234"}, {name: "Database", id: "pppp3"}],
-     Height: [{name: "Journal", id: "tyiut43"}, {name: "ART Registry", id: "4iiuoyj"}, {name: "Database", id: "2349gsdflk"}],
-     Weight: [{name: "Database", id: "09gdfs"}]
-     };
-     */
 }]);
