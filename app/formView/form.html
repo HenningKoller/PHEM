@@ -50,17 +50,31 @@
 			<div id="item-table">
 				<table class="table-hover table-condensed table table-bordered table-striped">
 					<thead>
-					<tr>
-						<th class="text-left">
+					<tr ng-repeat="(key,artifacts) in tables">
+
+						<th ng-show ="$index < 1" class="text-left">
 							<span class="glyphicon glyphicon-globe"></span>
 							Artifact Entries
 						</th>
-						<th ng-repeat="artifact in allArtifacts", class="text-center">
-							{{artifact}}
+						<th class="text-center"
+							ng-show ="$parent.$index < 1"
+							ng-repeat="artifact in artifacts">
+							{{artifact.name}}
 						</th>
 					</tr>
 					</thead>
+					<tr class="text-left" ng-repeat="(key, artifacts) in table">
+						<td><strong>{{key}}</strong></td>
+
+						<td class="text-center" ng-repeat="artifact in artifacts">
+							<input ng-if="artifact.name !== 'noCheckBox'" type="checkbox"
+								   class="pointer-cursor"
+								   ng-model="artifact.value">
+						</td>
+					</tr>
+				</table>
 					<!--
+					<thead>
 					<tr ng-repeat="(key,artifacts) in parsedDataElements">
 
 						<th ng-show ="$index < 1" class="text-left">
@@ -72,7 +86,8 @@
 							ng-repeat="artifact in artifacts">
 							{{artifact.name}}
 						</th>
-					</tr>-->
+					</tr>
+					</thead>
 					<tr class="text-left" ng-repeat="(key, artifacts) in parsedDataElements">
 						<td><strong>{{key}}</strong></td>
 						<td class="text-center"ng-repeat="artifact in artifacts">
@@ -81,7 +96,7 @@
 								   ng-model="artifact.value">
 						</td>
 					</tr>
-				</table>
+				</table>-->
 			</div>
 		</div>
 	</div>

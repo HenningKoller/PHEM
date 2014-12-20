@@ -12,6 +12,7 @@ services.config(['$routeProvider', function($routeProivder) {
 services.controller("formController",['$scope', '$http', '$routeParams', '$location', '$log', '$route', 'apiServices', function($scope, $http, $routeParams, $location, $log, $route, apiServices) {
     $scope.parsedDataElements = {};
     $scope.allArtifacts = {};
+    $scope.table = {};
     var dataElements = [];
     var date = new Date();
     var pos;
@@ -86,8 +87,7 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
             var dataName = dataElements[i].name.split("_");
 
             if(!(dataName[0] in $scope.allArtifacts)) {
-                $scope.allArtifacts[dataName[0]] = [{name: dataName[0]}];
-                $log.debug("Stored artifact in all artifacts: " + dataName[0]);
+                $scope.allArtifacts[dataName[0]] = {name: dataName[0]};
             }
 
             if(dataName[1] in $scope.parsedDataElements) {
@@ -100,13 +100,30 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
     }
 
     function buildTable() {
-        $scope.rowLength = 0;
         angular.forEach($scope.parsedDataElements, function (value, key) {
-            if (value.length > $scope.rowLength) {
-                $scope.rowLength = value.length;
-            }
+            $scope.table[key] = [];
         });
 
+        angular.forEach($scope.parsedDataElements, function (value, key)  {
+            $log.debug(key);
+            $log.debug("-----------");
+            angular.forEach($scope.allArtifacts, function (value2, key2)  {
+                var hasArtifact = false;
+                for(var j = 0; j < value.length; j++) {
+                    if(key2 === value[j].name) {
+                        hasArtifact = true;
+                        $scope.table[key].push(value[j]);
+                        $log.debug(key2 + " - true");
+                    }
+                }
+
+                if(!hasArtifact) {
+                    $scope.table[key].push({name: "noCheckBox"})
+                    $log.debug(key2 + " - false");
+                }
+            });
+            $log.debug("");
+        });
     }
 
     function resetFormValues() {
