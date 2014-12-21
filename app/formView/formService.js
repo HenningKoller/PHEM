@@ -54,7 +54,6 @@ services.controller("formController",['$scope', '$http', '$routeParams', '$locat
         $log.info("Posting form");
         apiServices.saveEvent().save(postJson, function (data){
             $log.info("Form was posted");
-            $log.debug(data);
         },
         function(reason){
             $log.error("Form was not posted");
